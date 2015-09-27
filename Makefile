@@ -28,7 +28,7 @@ CFLAGS += -pedantic -Wall -W -std=gnu99 -fno-strict-aliasing -MD -MP
 LDLIBS += -lrt
 
 # Turn on alfred capability dropping by default - set this to n if you don't want/need it
-export CONFIG_ALFRED_CAPABILITIES=y
+export CONFIG_ALFRED_CAPABILITIES?=y
 
 # disable verbose output
 ifneq ($(findstring $(MAKEFLAGS),s),s)
@@ -49,9 +49,9 @@ COMPILE.c = $(Q_CC)$(CC) $(CFLAGS) $(CPPFLAGS) $(TARGET_ARCH) -c
 LINK.o = $(Q_LD)$(CC) $(CFLAGS) $(LDFLAGS) $(TARGET_ARCH)
 
 # standard install paths
-PREFIX = /usr/local
-SBINDIR = $(PREFIX)/sbin
-MANDIR = $(PREFIX)/share/man
+PREFIX ?= /usr/local
+SBINDIR ?= $(PREFIX)/sbin
+MANDIR ?= $(PREFIX)/share/man
 
 # try to generate revision
 REVISION= $(shell	if [ -d .git ]; then \
